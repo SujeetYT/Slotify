@@ -16,6 +16,7 @@ import { format } from "date-fns";
 
 export default function DashboardPage() {
   const { user, isLoaded } = useUser();
+  const [baseUrl, setBaseUrl] = React.useState("Fetching...");
 
   const {
     register,
@@ -25,10 +26,11 @@ export default function DashboardPage() {
   } = useForm({
     resolver: zodResolver(usernameSchema),
   });
-
+  
   useEffect(() => {
     setValue("username", user?.username);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    setBaseUrl(window?.location.origin);
   }, [isLoaded]);
 
   const {
@@ -89,7 +91,7 @@ export default function DashboardPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <div className="flex items-center gap-2">
-                <span>{window?.location.origin}/</span>
+                <span>{baseUrl}/</span>
                 <Input {...register("username")} placeholder="username" />
               </div>
               {errors.username && (

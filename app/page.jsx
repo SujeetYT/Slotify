@@ -47,7 +47,7 @@ const Home = () => {
     <main className="container mx-auto px-4 py-16">
       {/* Hero Section */}
       <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-24">
-        <div className="lg:w-1/2">
+        <div className="lg:w-1/2 lg:pl-12">
           <h1 className="text-7xl font-extrabold gradient-title pb-6">
             Simplify Your Scheduling
           </h1>
