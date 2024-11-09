@@ -225,5 +225,21 @@ function generateAvailableTimeSlots(
     currentTime = slotEnd;
   }
 
-  return slots;
+  // Filter out slots that are already booked
+  const availableSlots = slots.filter((slot) => {
+    const slotStart = parseISO(`${dateStr}T${slot}:00`);
+    const slotEnd = addMinutes(slotStart, duration);
+
+    return !bookings.some((booking) => {
+      const bookingStart = booking.startTime;
+      const bookingEnd = booking.endTime;
+      return (
+        (slotStart >= bookingStart && slotStart < bookingEnd) ||
+        (slotEnd > bookingStart && slotEnd <= bookingEnd) ||
+        (slotStart <= bookingStart && slotEnd >= bookingEnd)
+      );
+    });
+  });
+
+  return availableSlots;
 }
